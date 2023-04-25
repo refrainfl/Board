@@ -8,8 +8,8 @@
 
 - FrontEnd: ThymeLeaf
 - BackEnd: Java 11 / SpringBoot / Gradle
-- DB: MariaDB / MyBatis
+- DB: MariaDB 
 
-## 개요
-
-- 환경설정
+## Date
+- Day #1 환경설정 / DB 연동 / Member 설계
+- 
