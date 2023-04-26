@@ -1,6 +1,7 @@
 package simpleboard.board.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import simpleboard.board.domain.Member;
@@ -15,9 +16,13 @@ public class MemberService {
     @Autowired
     MemberRepository memberRepository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Transactional
     public Long join(Member member) {
         validateDuplicateMember(member);
+        member.setPassword(passwordEncoder.encode(member.getPassword()));
         memberRepository.save(member);
         return member.getMemberId();
     }
@@ -31,7 +36,7 @@ public class MemberService {
 
 
     public Long login(String id, String pw) {
-        List<Member> members = memberRepository.findByLoginIdAndPassword(id, pw);
+        List<Member> members = memberRepository.findByLoginIdAndPassword(id, passwordEncoder.encode(pw));
         if (members.isEmpty() || members.size() > 1) {
             throw new IllegalStateException("존재하지 않는 회원입니다.");
         }
