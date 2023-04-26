@@ -34,8 +34,12 @@ public class MemberController {
         member.setName(form.getName());
         member.setEMail(form.getEMail());
 
-        memberService.join(member);
+        try {
+            memberService.join(member);
+        } catch (Exception e) {
+            return "/members/createMemberForm";
+        }
+
         return "redirect:/";
     }
-
 }
