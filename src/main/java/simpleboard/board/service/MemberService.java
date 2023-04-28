@@ -34,7 +34,6 @@ public class MemberService {
         }
     }
 
-
     public Long login(String id, String pw) {
         List<Member> members = memberRepository.findByLoginIdAndPassword(id, passwordEncoder.encode(pw));
         if (members.isEmpty() || members.size() > 1) {

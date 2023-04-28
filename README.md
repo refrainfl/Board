@@ -11,5 +11,7 @@
 - SCM: GIT
 
 ## Date
-- Day #1 환경설정 / DB 연동
-- Day #2 Domain 구현 / 회원가입 기능 및 페이지 구현 / password 암호화
+- Day #1 환경설정, DB 연동
+- 
+- Day #2 Domain 설계, MemberRepository/Service 구현 및 테스트 , password 암호화 기능 추가
+- Day #3 PostRepository/Service 구현 및 테스트

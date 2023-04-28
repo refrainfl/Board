@@ -16,10 +16,11 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postId;
 
-
     private LocalDateTime postDate;
     private String title;
+    @Column(length = 10000)
     private String contents;
+    @Enumerated(value = EnumType.STRING)
     private PostFilter filter;
 
     @ManyToOne(fetch = FetchType.LAZY)
