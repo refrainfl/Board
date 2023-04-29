@@ -7,7 +7,7 @@
 ## Tech
 - FrontEnd: ThymeLeaf(HTML) / CSS / JS
 - BackEnd: Java 11 / SpringBoot / Gradle
-- DB: MariaDB 
+- DB: JPA / MariaDB 
 - SCM: GIT
 
 ## Date
