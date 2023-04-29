@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,12 +18,14 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @Transactional
-@Rollback(value = false)
+@Rollback
 class MemberServiceTest {
     @Autowired
     MemberService memberService;
     @Autowired
     MemberRepository memberRepository;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Test
     void join() throws Exception {
@@ -49,14 +52,14 @@ class MemberServiceTest {
     void join_DuplicateTest() throws Exception {
         Member member1 = new Member();
         member1.setLoginId("admin");
-        member1.setPassword("admin");
+        member1.setPassword(passwordEncoder.encode("admin"));
         member1.setName("이름");
         member1.setEMail("asd@asd.com");
         memberService.join(member1);
 
         Member member2 = new Member();
         member2.setLoginId("admin");
-        member2.setPassword("admin");
+        member2.setPassword(passwordEncoder.encode("admin"));
         member2.setName("이름");
         member2.setEMail("asd@asd.com");
 
@@ -70,11 +73,10 @@ class MemberServiceTest {
         member.setPassword("admin");
         member.setName("이름");
         member.setEMail("asd@asd.com");
-        memberService.join(member);
+        Long memberId = memberService.join(member);
 
-        Long findId = memberService.login(member.getLoginId(), member.getPassword());
-
-        assertThat(member.getMemberId()).isEqualTo(findId);
+        Long findId = memberService.login(member);
+        assertThat(memberId).isEqualTo(findId);
     }
 
     @Test
@@ -86,8 +88,14 @@ class MemberServiceTest {
         member.setEMail("asd@asd.com");
         memberService.join(member);
 
+        Member member2 = new Member();
+        member.setLoginId("admin");
+        member.setPassword("ass");
+        member.setName("이름");
+        member.setEMail("asd@asd.com");
 
-        assertThrows(IllegalStateException.class, () -> memberService.login(member.getLoginId(), "Ffff"));
+
+        assertThrows(IllegalStateException.class, () -> memberService.login(member2));
     }
 
 

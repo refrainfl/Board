@@ -23,6 +23,10 @@ public class PostRepository {
         return em.find(Post.class, postId);
     }
 
+    public List<Post> findAll(){
+        return em.createQuery("select p from Post p ",Post.class).getResultList();
+    }
+
     public List<Post> findByTitle(String title) {
         return em.createQuery("select p from Post p where p.title like :title", Post.class)
                 .setParameter("title", "%" + title + "%")

@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @Transactional
-@Rollback(value = false)
+@Rollback
 class PostServiceTest {
 
     @Autowired

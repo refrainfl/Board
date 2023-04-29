@@ -22,7 +22,8 @@ public class MemberService {
     @Transactional
     public Long join(Member member) {
         validateDuplicateMember(member);
-        member.setPassword(passwordEncoder.encode(member.getPassword()));
+        String encodedPassword = passwordEncoder.encode(member.getPassword());
+        member.setPassword(encodedPassword);
         memberRepository.save(member);
         return member.getMemberId();
     }
@@ -34,10 +35,10 @@ public class MemberService {
         }
     }
 
-    public Long login(String id, String pw) {
-        List<Member> members = memberRepository.findByLoginIdAndPassword(id, passwordEncoder.encode(pw));
+    public Long login(Member member) {
+        List<Member> members = memberRepository.findByLoginIdAndPassword(member.getLoginId(), member.getPassword());
         if (members.isEmpty() || members.size() > 1) {
-            throw new IllegalStateException("존재하지 않는 회원입니다.");
+            throw new IllegalStateException("존재하지 않는 회원입니다." + members.size());
         }
         return members.get(0).getMemberId();
     }
