@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"/>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+
+    <p align="right">
+        <a class="btn btn-outline-primary btn-sm btn-float right"
+           th:href="@{/posts/{id}/edit (id=${post.postId})}">게시글 수정</a>
+    </p>
+
+    <div class="content">
+        <section>
+            <table class="table table-hover">
+                <tbody>
+                <tr>
+                    <th scope="row" width="5%">#</th>
+                    <td th:text="${post.postId}" width="8%"></td>
+                    <th scope="row" width="10%">분류</th>
+                    <td th:text="${post.filter}" width="13%"></td>
+                    <th scope="row" width="12%">등록일</th>
+                    <td th:text="${post.postDate}" width="10%"></td>
+                    <th scope="row" width="12%">작성자</th>
+                    <td width="15%"> 관리자</td>
+                </tr>
+
+                <tr>
+                    <th style="font-size: 30px" colspan="100%" th:text="${post.title}"></th>
+                </tr>
+                </tbody>
+            </table>
+
+            <p th:utext="${#strings.replace(post.contents, '<br/>', '&lt;br /&gt;')}">
+            </p>
+
+        </section>
+
+
+    </div>
+
+
+    <div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+</body>
+</html>

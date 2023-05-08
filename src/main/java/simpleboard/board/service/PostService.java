@@ -26,10 +26,15 @@ public class PostService {
         if (post.getFilter() == null) {
             post.setFilter(PostFilter.NONE);
         }
+        post.setContents(post.getContents().replaceAll(System.lineSeparator(),"<br>"));
         return postRepository.save(post);
     }
 
     public List<Post> findAllPost() {
         return postRepository.findAll();
+    }
+
+    public Post findById(Long Id){
+        return postRepository.findOne(Id);
     }
 }

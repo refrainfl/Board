@@ -15,3 +15,4 @@
 - Day #2 Domain 설계, MemberRepository/Service 구현 및 테스트 , password 암호화 기능 추가
 - Day #3 PostRepository/Service 구현 및 테스트
 - Day #4 PostController/View 구현
+- Day #5 Post 조회 및 수정 구현

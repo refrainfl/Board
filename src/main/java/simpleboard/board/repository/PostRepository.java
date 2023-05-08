@@ -15,7 +15,13 @@ public class PostRepository {
     EntityManager em;
 
     public Long save(Post post) {
-        em.persist(post);
+
+        if (post.getPostId() == null) {
+            em.persist(post);
+        } else {
+            em.merge(post);
+        }
+
         return post.getPostId();
     }
 
@@ -23,8 +29,8 @@ public class PostRepository {
         return em.find(Post.class, postId);
     }
 
-    public List<Post> findAll(){
-        return em.createQuery("select p from Post p ",Post.class).getResultList();
+    public List<Post> findAll() {
+        return em.createQuery("select p from Post p ", Post.class).getResultList();
     }
 
     public List<Post> findByTitle(String title) {

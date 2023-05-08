@@ -6,7 +6,7 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
 
     <p align="right">
-    <a class="btn btn-outline-primary btn-sm btn-float right" href="/posts/new">게시글 등록</a>
+        <a class="btn btn-outline-primary btn-sm btn-float right" href="/posts/new">게시글 등록</a>
     </p>
 
     <div>
@@ -24,14 +24,14 @@
             <tr th:each="post : ${posts}">
                 <td th:text="${post.postId}"></td>
                 <td th:text="${post.filter}"></td>
-                <td th:text="${post.title}"></td>
+
+
+                <td width="70%">
+                    <a href="#" th:href="@{/posts/{id} (id=${post.postId})}">[[${post.title}]]</a>
+                </td>
+
                 <td th:text="${post.postDate}"></td>
                 <td>
-                    <a href="#" th:href="@{/posts/{id} (id=${post.postId})}"
-                       class="btn btn-primary btn-sm" role="button">읽기</a>
-
-                    <a href="#" th:href="@{/posts/{id}/edit (id=${post.postId})}"
-                       class="btn btn-primary btn-sm" role="button">수정</a>
                 </td>
             </tr>
             </tbody>
