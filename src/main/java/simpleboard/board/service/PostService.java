@@ -1,6 +1,9 @@
 package simpleboard.board.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import simpleboard.board.domain.Post;
@@ -31,10 +34,14 @@ public class PostService {
     }
 
     public List<Post> findAllPost() {
-        return postRepository.findAll();
+        return postRepository.findAll(Sort.by(Sort.Direction.DESC, "postId"));
     }
 
     public Optional<Post> findById(Long Id) {
         return postRepository.findById(Id);
+    }
+
+    public Page<Post> findAllPostPageble(Pageable pageable) {
+        return postRepository.findAllByOrderByPostIdDesc(pageable);
     }
 }

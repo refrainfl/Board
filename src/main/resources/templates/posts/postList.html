@@ -37,6 +37,35 @@
             </tbody>
         </table>
     </div>
+
+    <div class="center text-center">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justifiy-content-center" th:if="${totalPage != 0}">
+                <li class="page-item">
+                    <a class="page-link"
+                       th:href="@{/posts(page=${posts.pageable.pageNumber - 1})}">Previous
+                    </a>
+                </li>
+
+
+                <li class="page-item" th:classappend="${page == posts.pageable.pageNumber + 1} ? 'disabled'"
+                    th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                    <a class="page-link"
+                       th:href="@{/posts(page=${page - 1})}"
+                       th:text="${page}">
+                    </a>
+
+                </li>
+                <li class="page-item">
+                    <a class="page-link"
+                       th:href="@{/posts(page=${posts.pageable.pageNumber + 1})}">Next
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+
     <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
 </body>

@@ -1,6 +1,9 @@
 package simpleboard.board.web;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +22,17 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping("/posts")
-    public String list(Model model) {
-        List<Post> posts = postService.findAllPost();
+    public String list(@PageableDefault(size = 5) Pageable pageable, Model model) {
+        Page<Post> posts = postService.findAllPostPageble(pageable);
+
+        int startPage = Math.max(1, posts.getPageable().getPageNumber() - 4);
+        int endPage = Math.min(posts.getPageable().getPageNumber()+4, posts.getTotalPages());
+
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
         model.addAttribute("posts", posts);
+
+
         return "posts/postList";
     }
 
