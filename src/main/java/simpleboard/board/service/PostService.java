@@ -8,9 +8,9 @@ import simpleboard.board.domain.PostFilter;
 import simpleboard.board.repository.PostRepository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -21,20 +21,20 @@ public class PostService {
 
 
     @Transactional
-    public Long savePost(Post post) {
+    public void savePost(Post post) {
         post.setPostDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")));
         if (post.getFilter() == null) {
             post.setFilter(PostFilter.NONE);
         }
-        post.setContents(post.getContents().replaceAll(System.lineSeparator(),"<br>"));
-        return postRepository.save(post);
+        post.setContents(post.getContents().replaceAll(System.lineSeparator(), "<br>"));
+        postRepository.save(post);
     }
 
     public List<Post> findAllPost() {
         return postRepository.findAll();
     }
 
-    public Post findById(Long Id){
-        return postRepository.findOne(Id);
+    public Optional<Post> findById(Long Id) {
+        return postRepository.findById(Id);
     }
 }

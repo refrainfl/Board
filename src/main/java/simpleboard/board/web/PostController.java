@@ -11,6 +11,7 @@ import simpleboard.board.domain.Post;
 import simpleboard.board.service.PostService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -45,7 +46,8 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     public String findById(@PathVariable Long id, Model model) {
-        Post post = postService.findById(id);
+        Optional<Post> byId = postService.findById(id);
+        Post post = byId.get();
         model.addAttribute("post", post);
 
         if (model == null) {
@@ -56,7 +58,9 @@ public class PostController {
 
     @GetMapping("/posts/{id}/edit")
     public String updatePostForm(@PathVariable Long id, Model model) {
-        Post post = postService.findById(id);
+        Optional<Post> byId = postService.findById(id);
+        Post post = byId.get();
+
         PostForm postForm = new PostForm();
         postForm.setPostId(post.getPostId());
         postForm.setPostDate(post.getPostDate());

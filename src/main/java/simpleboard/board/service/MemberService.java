@@ -24,14 +24,15 @@ public class MemberService {
         validateDuplicateMember(member);
         String encodedPassword = passwordEncoder.encode(member.getPassword());
         member.setPassword(encodedPassword);
-        memberRepository.save(member);
-        return member.getMemberId();
+        Member save = memberRepository.save(member);
+        return save.getMemberId();
     }
 
     private void validateDuplicateMember(Member member) {
         List<Member> findMembers = memberRepository.findByLoginId(member.getLoginId());
         if (!findMembers.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
+
         }
     }
 
