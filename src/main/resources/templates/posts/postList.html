@@ -17,7 +17,7 @@
                 <th>분류</th>
                 <th>제목</th>
                 <th>등록일자</th>
-                <th></th>
+                <th>작성자</th>
             </tr>
             </thead>
             <tbody>
@@ -25,14 +25,11 @@
                 <td th:text="${post.postId}"></td>
                 <td th:text="${post.filter}"></td>
 
-
-                <td width="70%">
+                <td width="55%">
                     <a href="#" th:href="@{/posts/{id} (id=${post.postId})}">[[${post.title}]]</a>
                 </td>
-
                 <td th:text="${post.postDate}"></td>
-                <td>
-                </td>
+                <td>관리자</td>
             </tr>
             </tbody>
         </table>
