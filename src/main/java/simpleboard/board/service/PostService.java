@@ -26,9 +26,6 @@ public class PostService {
     @Transactional
     public void savePost(Post post) {
         post.setPostDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")));
-        if (post.getFilter() == null) {
-            post.setFilter(PostFilter.NONE);
-        }
         post.setContents(post.getContents().replaceAll(System.lineSeparator(), "<br>"));
         postRepository.save(post);
     }
@@ -40,6 +37,12 @@ public class PostService {
     public Optional<Post> findById(Long Id) {
         return postRepository.findById(Id);
     }
+
+    @Transactional
+    public void deleteById(Long Id) {
+        postRepository.deleteById(Id);
+    }
+
 
     public Page<Post> findAllPostPageble(Pageable pageable) {
         return postRepository.findAllByOrderByPostIdDesc(pageable);

@@ -5,9 +5,22 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
 
-    <p align="right">
-        <a class="btn btn-outline-primary btn-sm btn-float right"
-           th:href="@{/posts/{id}/edit (id=${post.postId})}">게시글 수정</a>
+    <p class="button">
+    <form id="delete-form"
+          th:action="@{/posts/{id}/delete (id=${post.postId})}"
+          method="post"
+          style="display:inline">
+        <button class="btn btn-outline-primary btn-sm btn-float right"
+        style="float: right">삭제</button>
+    </form>
+
+    <form id="update-form"
+          th:action="@{/posts/{id}/edit (id=${post.postId})}"
+          method="get"
+          style="display:inline">
+        <button class="btn btn-outline-primary btn-sm btn-float right"
+                style="float: right">수정</button>
+    </form>
     </p>
 
     <div class="content">

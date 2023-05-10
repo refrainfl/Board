@@ -17,3 +17,4 @@
 - Day #4 PostController/View 구현
 - Day #5 Post 조회 및 수정 구현
 - Day #6 JPA 적용 및 페이징 구현
+- Day #7 삭제 기능 구현

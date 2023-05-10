@@ -6,10 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import simpleboard.board.domain.Post;
 import simpleboard.board.service.PostService;
 
@@ -26,7 +23,7 @@ public class PostController {
         Page<Post> posts = postService.findAllPostPageble(pageable);
 
         int startPage = Math.max(1, posts.getPageable().getPageNumber() - 4);
-        int endPage = Math.min(posts.getPageable().getPageNumber()+4, posts.getTotalPages());
+        int endPage = Math.min(posts.getPageable().getPageNumber() + 4, posts.getTotalPages());
 
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
@@ -93,8 +90,13 @@ public class PostController {
         post.setFilter(postForm.getFilter());
         post.setContents(postForm.getContents());
 
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         postService.savePost(post);
+        return "redirect:/posts";
+    }
+
+    @PostMapping("/posts/{id}/delete")
+    public String deletePost(@PathVariable Long id) {
+        postService.deleteById(id);
         return "redirect:/posts";
     }
 }
