@@ -18,3 +18,4 @@
 - Day #5 Post 조회 및 수정 구현
 - Day #6 JPA 적용 및 페이징 구현
 - Day #7 삭제 기능 구현
+- Day #8 SpringSecurity를 이용한 로그인 구현
