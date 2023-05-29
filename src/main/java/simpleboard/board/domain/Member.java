@@ -19,6 +19,9 @@ public class Member {
     private String name;
     private String eMail;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @OneToMany(mappedBy = "member")
     private List<Post> posts;
 

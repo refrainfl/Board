@@ -5,9 +5,10 @@ import simpleboard.board.domain.Member;
 import simpleboard.board.domain.Post;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
-    List<Member> findByLoginId(String loginId);
 
-    List<Member> findByLoginIdAndPassword(String loginId, String password);
+    Optional<Member> findByLoginId(String loginId);
+
 }

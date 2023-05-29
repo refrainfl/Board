@@ -1,12 +1,15 @@
 package simpleboard.board.web;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import simpleboard.board.domain.Member;
+import simpleboard.board.domain.Role;
 import simpleboard.board.service.MemberService;
 
 import javax.validation.Valid;
@@ -15,6 +18,8 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @GetMapping("/members/new")
     public String createForm(Model model) {
@@ -30,9 +35,11 @@ public class MemberController {
 
         Member member = new Member();
         member.setLoginId(form.getLoginId());
-        member.setPassword(form.getPassword());
+        String encodedPassword = passwordEncoder.encode(form.getPassword());
+        member.setPassword(encodedPassword);
         member.setName(form.getName());
         member.setEMail(form.getEMail());
+        member.setRole(Role.ROLE_USER);
 
         try {
             memberService.join(member);
@@ -41,5 +48,16 @@ public class MemberController {
         }
 
         return "redirect:/";
+    }
+
+    @GetMapping("/members/login")
+    public String login() {
+        return "/members/loginMemberForm";
+    }
+
+    @GetMapping("/members/login/error")
+    public String loginError(Model model) {
+        model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요.");
+        return "/members/loginMemberForm";
     }
 }
