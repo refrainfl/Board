@@ -5,8 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
+<div th:replace="fragments/bodyHeader :: bodyHeader"/>
 <div class="container">
-    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <div class="jumbotron">
         <h1>SimpleBoard</h1>
         </p>
@@ -16,7 +16,7 @@
             <a class="btn btn-lg btn-dark" href="/posts">게 시 판</a>
         </p>
     </div>
-    <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
+<div th:replace="fragments/footer :: footer"/>
 </body>
 </html>

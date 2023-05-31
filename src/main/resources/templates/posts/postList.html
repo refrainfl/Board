@@ -2,14 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
 <body>
+<div th:replace="fragments/bodyHeader :: bodyHeader"/>
 <div class="container">
-    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <div class="button mb-3">
+        <a class="btn btn-outline-primary btn-sm float-right" href="/posts/new">게시글 등록</a>
+    </div>
 
-    <p align="right">
-        <a class="btn btn-outline-primary btn-sm btn-float right" href="/posts/new">게시글 등록</a>
-    </p>
-
-    <div>
+    <div class="content">
         <table class="table table-striped">
             <thead>
             <tr>
@@ -29,13 +28,13 @@
                     <a href="#" th:href="@{/posts/{id} (id=${post.postId})}">[[${post.title}]]</a>
                 </td>
                 <td th:text="${post.postDate}"></td>
-                <td>관리자</td>
+                <td th:text="${post.author}"></td>
             </tr>
             </tbody>
         </table>
     </div>
 
-    <div class="center text-center">
+    <div class="paging text-center">
         <nav aria-label="Page navigation example">
             <ul class="pagination justifiy-content-center" th:if="${totalPage != 0}">
                 <li class="page-item">
@@ -62,8 +61,7 @@
         </nav>
     </div>
 
-
-    <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
+<div th:replace="fragments/footer :: footer"/>
 </body>
 </html>

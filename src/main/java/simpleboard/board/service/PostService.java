@@ -3,8 +3,10 @@ package simpleboard.board.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import simpleboard.board.domain.MemberDetail;
 import simpleboard.board.domain.Post;
 import simpleboard.board.repository.PostRepository;
 
@@ -21,8 +23,13 @@ public class PostService {
 
     @Transactional
     public void savePost(Post post) {
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        MemberDetail memberDetail = (MemberDetail) principal;
+
         post.setPostDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yy.MM.dd")));
         post.setContents(post.getContents().replaceAll(System.lineSeparator(), "<br>"));
+        post.setAuthor(memberDetail.getUsername());
         postRepository.save(post);
     }
 

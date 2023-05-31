@@ -2,26 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
 <body>
+<div th:replace="fragments/bodyHeader :: bodyHeader"/>
 <div class="container">
-    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-
-    <p class="button">
+    <div class = "button mb-3 float-right">
     <form id="delete-form"
           th:action="@{/posts/{id}/delete (id=${post.postId})}"
           method="post"
           style="display:inline">
-        <button class="btn btn-outline-primary btn-sm btn-float right"
-        style="float: right">삭제</button>
+        <button class="btn btn-outline-primary btn-sm btn-float right">삭제</button>
     </form>
 
     <form id="update-form"
           th:action="@{/posts/{id}/edit (id=${post.postId})}"
           method="get"
           style="display:inline">
-        <button class="btn btn-outline-primary btn-sm btn-float right"
-                style="float: right">수정</button>
+        <button class="btn btn-outline-primary btn-sm btn-float right">수정</button>
     </form>
-    </p>
+    </div>
 
     <div class="content">
         <section>
@@ -30,12 +27,15 @@
                 <tr>
                     <th scope="row" width="5%">#</th>
                     <td th:text="${post.postId}" width="8%"></td>
+
                     <th scope="row" width="10%">분류</th>
                     <td th:text="${post.filter}" width="13%"></td>
+
                     <th scope="row" width="12%">등록일</th>
                     <td th:text="${post.postDate}" width="10%"></td>
+
                     <th scope="row" width="12%">작성자</th>
-                    <td width="15%"> 관리자</td>
+                    <td th:text="${post.author}" width="15%"></td>
                 </tr>
 
                 <tr>
@@ -53,7 +53,7 @@
     </div>
 
 
-    <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
+<div th:replace="fragments/footer :: footer"/>
 </body>
 </html>

@@ -10,8 +10,8 @@
 
 </style>
 <body>
+<div th:replace="fragments/bodyHeader :: bodyHeader"/>
 <div class="container">
-    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <form th:object="${postForm}" method="post">
 
         <input type="hidden" th:field="*{postId}" />
@@ -50,7 +50,7 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <br/>
-    <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
+<div th:replace="fragments/footer :: footer"/>
 </body>
 </html>

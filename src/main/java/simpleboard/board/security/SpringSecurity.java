@@ -23,9 +23,13 @@ public class SpringSecurity {
                 .formLogin()
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .loginPage("/members/login")
-                .failureUrl("/members/login/error")
-                .defaultSuccessUrl("/post")
+                .loginPage("/login")
+                .failureUrl("/login/error")
+                .defaultSuccessUrl("/posts")
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
                 .and().build();
     }
 

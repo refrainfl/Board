@@ -19,3 +19,4 @@
 - Day #6 JPA 적용 및 페이징 구현
 - Day #7 삭제 기능 구현
 - Day #8 SpringSecurity를 이용한 로그인 구현
+- Day #9 로그아웃 구현 및 디자인 수정

@@ -22,10 +22,7 @@ public class Post {
     private String contents;
     @Enumerated(value = EnumType.STRING)
     private PostFilter filter;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "memberId")
-    private Member member;
+    private String author;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<Comment> comments;
