@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,7 +20,13 @@ public class Post {
     private String contents;
     @Enumerated(value = EnumType.STRING)
     private PostFilter filter;
+
+    private String memberId;
+
     private String author;
+
+    @ManyToOne
+    private Member member;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<Comment> comments;

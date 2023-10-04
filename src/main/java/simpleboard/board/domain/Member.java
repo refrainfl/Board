@@ -23,6 +23,9 @@ public class Member {
     private Role role;
 
     @OneToMany(mappedBy = "member")
+    private List<Post> posts;
+
+    @OneToMany(mappedBy = "member")
     private List<Comment> comments;
 }
 

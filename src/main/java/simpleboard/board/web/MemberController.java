@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import simpleboard.board.domain.Member;
 import simpleboard.board.domain.Role;
 import simpleboard.board.service.MemberService;
@@ -16,18 +17,19 @@ import javax.validation.Valid;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/members")
 public class MemberController {
     private final MemberService memberService;
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @GetMapping("/members/new")
+    @GetMapping("/new")
     public String createForm(Model model) {
         model.addAttribute("memberForm", new MemberForm());
         return "/members/createMemberForm";
     }
 
-    @PostMapping("/members/new")
+    @PostMapping("/new")
     public String create(@Valid MemberForm form, BindingResult result) {
         if (result.hasErrors()) {
             return "/members/createMemberForm";

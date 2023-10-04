@@ -2,7 +2,6 @@ package simpleboard.board.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import simpleboard.board.domain.Member;
-import simpleboard.board.domain.Post;
 
 import java.util.List;
 import java.util.Optional;

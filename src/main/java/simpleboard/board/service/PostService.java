@@ -23,13 +23,14 @@ public class PostService {
 
     @Transactional
     public void savePost(Post post) {
-
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        MemberDetail memberDetail = (MemberDetail) principal;
+        MemberDetail memberDetail = (MemberDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         post.setPostDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yy.MM.dd")));
         post.setContents(post.getContents().replaceAll(System.lineSeparator(), "<br>"));
-        post.setAuthor(memberDetail.getUsername());
+        post.setMember(memberDetail.getMember());
+        post.setMemberId(memberDetail.getUsername());
+        post.setAuthor(memberDetail.getMember().getName());
+
         postRepository.save(post);
     }
 

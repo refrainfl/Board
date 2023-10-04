@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -14,7 +13,8 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
     private String commentContent;
-    private LocalDateTime commentDate;
+    private String commentDate;
+    private String author;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;

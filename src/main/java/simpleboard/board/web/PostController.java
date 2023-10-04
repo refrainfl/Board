@@ -1,24 +1,30 @@
 package simpleboard.board.web;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import simpleboard.board.domain.MemberDetail;
 import simpleboard.board.domain.Post;
 import simpleboard.board.service.PostService;
 
-import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
+
+
+@RequestMapping("/posts")
 public class PostController {
     private final PostService postService;
 
-    @GetMapping("/posts")
+    @GetMapping("")
     public String list(@PageableDefault(size = 5) Pageable pageable, Model model) {
         Page<Post> posts = postService.findAllPostPageble(pageable);
 
@@ -34,14 +40,17 @@ public class PostController {
     }
 
 
-    @GetMapping("/posts/new")
-    public String createForm(Model model) {
+    @GetMapping("/new")
+    public String createForm(Model model, Authentication authentication) {
+        MemberDetail memberDetail = (MemberDetail) authentication.getPrincipal();
+        log.info("username={}",memberDetail.getUsername());
+
         model.addAttribute("postForm", new PostForm());
         return "posts/createPostForm";
     }
 
 
-    @PostMapping("/posts/new")
+    @PostMapping("/new")
     public String create(PostForm postForm) {
         Post post = new Post();
         post.setTitle(postForm.getTitle());
@@ -52,7 +61,7 @@ public class PostController {
         return "redirect:/posts";
     }
 
-    @GetMapping("/posts/{id}")
+    @GetMapping("/{id}")
     public String findById(@PathVariable Long id, Model model) {
         Optional<Post> byId = postService.findById(id);
         Post post = byId.get();
@@ -64,7 +73,7 @@ public class PostController {
         return "posts/detail";
     }
 
-    @GetMapping("/posts/{id}/edit")
+    @GetMapping("/{id}/edit")
     public String updatePostForm(@PathVariable Long id, Model model) {
         Optional<Post> byId = postService.findById(id);
         Post post = byId.get();
@@ -80,7 +89,7 @@ public class PostController {
         return "posts/updatePostForm";
     }
 
-    @PostMapping("/posts/{id}/edit")
+    @PostMapping("/{id}/edit")
     public String updatePost(@ModelAttribute("postForm") PostForm postForm) {
 
         Post post = new Post();
@@ -94,7 +103,7 @@ public class PostController {
         return "redirect:/posts";
     }
 
-    @PostMapping("/posts/{id}/delete")
+    @PostMapping("/{id}/delete")
     public String deletePost(@PathVariable Long id) {
         postService.deleteById(id);
         return "redirect:/posts";
